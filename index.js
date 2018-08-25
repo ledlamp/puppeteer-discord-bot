@@ -10,6 +10,9 @@
 	var Discord = require('discord.js');
 	var bot = new Discord.Client();
 	bot.login(fs.readFileSync('./token.txt','utf8'));
+	bot.on('ready', ()=>{
+		bot.user.setActivity("p!help")
+	});
 
 	var cmdPrefix = "p!";
 	bot.on("message", async function(msg){
@@ -20,6 +23,21 @@
 		var query = args.slice(1).join(" ");
 
 		switch (cmd) {
+			case "help":
+			case "h":
+				msg.channel.send({embed:{
+					title: "Commands",
+					description:
+						"\n`p!screenshot <url>`"+
+						"\n`p!google <query>`"+
+						"\n`p!google-images <query>`"+
+						"\n`p!bing <query>`"+
+						"\n`p!ping-images <query>`"+
+						"\n`p!youtube <query>`"+
+						"\n\n[» Repository](https://github.com/ledlamp/puppeteer-discord-bot)"+
+						"\n[» Submit an issue](https://github.com/ledlamp/puppeteer-discord-bot/issues/new)"
+				}});
+				break;
 			case "screenshot":
 			case "ss":
 				pup(msg, query.startsWith("http://") ? query : `http://${query}`);
