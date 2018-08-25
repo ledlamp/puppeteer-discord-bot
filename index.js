@@ -22,7 +22,7 @@
 		switch (cmd) {
 			case "screenshot":
 			case "ss":
-				pup(msg, query);
+				pup(msg, query.startsWith("http://") ? query : `http://${query}`);
 				break;
 			case "google":
 			case "g":
@@ -56,12 +56,18 @@
 	});
 
 	async function pup(message, url) {
-		var page = await browser.newPage();
-		await page.setViewport({width: 1440, height: 900});
-		await page.goto(url);
-		var screenshot = await page.screenshot({type: 'png'});
-		message.channel.send(new Discord.Attachment(screenshot, "screenshot.png"));
-		page.close();
+		message.react('🆗');
+		try {
+			var page = await browser.newPage();
+			await page.setViewport({width: 1440, height: 900});
+			await page.goto(url);
+			var screenshot = await page.screenshot({type: 'png'});
+			message.channel.send(new Discord.Attachment(screenshot, "screenshot.png"));
+		} catch(error) {
+			message.channel.send(`:warning: ${error.message}`);
+		} finally {
+			page.close();
+		}
 	}
 
 })();
