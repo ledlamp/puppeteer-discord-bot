@@ -34,7 +34,8 @@
 						"\n`p!bing <query>`"+
 						"\n`p!ping-images <query>`"+
 						"\n`p!youtube <query>`"+
-						"\n\n[» Repository](https://github.com/ledlamp/puppeteer-discord-bot)"+
+						"\n\n[» Invite](https://discordapp.com/oauth2/authorize?scope=bot&client_id=482784865532641290)"+
+						"\n[» Repository](https://github.com/ledlamp/puppeteer-discord-bot)"+
 						"\n[» Submit an issue](https://github.com/ledlamp/puppeteer-discord-bot/issues/new)"
 				}});
 				break;
