@@ -40,7 +40,7 @@
 				break;
 			case "screenshot":
 			case "ss":
-				pup(msg, query.startsWith("http://") ? query : `http://${query}`);
+				pup(msg, (query.startsWith("http://") || query.startsWith("https://")) ? query : `http://${query}`);
 				break;
 			case "google":
 			case "g":
