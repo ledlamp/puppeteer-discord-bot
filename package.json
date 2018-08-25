@@ -1,6 +1,6 @@
 {
   "dependencies": {
     "discord.js": "^11.4.2",
-    "puppeteer": "^1.7.0"
+    "puppeteer-core": "^1.7.0"
   }
 }
