@@ -9,7 +9,7 @@
 
 	var Discord = require('discord.js');
 	var bot = new Discord.Client();
-	bot.login(fs.readFileSync('./token.txt','utf8'));
+	bot.login(fs.readFileSync('./token.txt','utf8').trim());
 	bot.on('ready', ()=>{
 		bot.user.setActivity("p!help")
 	});
