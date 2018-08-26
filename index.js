@@ -49,7 +49,7 @@
 				break;
 			case "google-images":
 			case "gi":
-				pup(msg, `https://www.google.com/search?q=${encodeURIComponent(query)}&tbm=isch`);
+				pup(msg, `https://www.google.com/search?q=${encodeURIComponent(query)}&tbm=isch&safe=active`);
 				break;
 			case "bing":
 			case "b":
