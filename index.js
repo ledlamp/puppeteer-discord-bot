@@ -49,7 +49,7 @@
 				break;
 			case "google-images":
 			case "gi":
-				pup(msg, `https://www.google.com/search?q=${encodeURIComponent(query)}&tbm=isch${msg.channel.nsfw ? '' : '&safe=active'}`);
+				pup(msg, `https://www.google.com/search?q=${encodeURIComponent(query)}&tbm=isch&safe=${msg.channel.nsfw ? 'off' : 'on'}`);
 				break;
 			case "bing":
 			case "b":
@@ -57,7 +57,7 @@
 				break;
 			case "bing-images":
 			case "bi":
-				pup(msg, `https://www.bing.com/images/search?q=${encodeURIComponent(query)}`);
+				pup(msg, `https://www.bing.com/images/search?q=${encodeURIComponent(query)}&safeSearch=${msg.channel.nsfw ? 'off' : 'moderate'}`);
 				break;
 			case "youtube":
 			case "yt":
