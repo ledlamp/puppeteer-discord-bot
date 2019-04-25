@@ -85,7 +85,12 @@
 		} catch(error) {
 			message.channel.send(`:warning: ${error.message}`);
 		} finally {
-			page.close();
+			try {
+				page.close();
+			} catch(e) {
+				console.error(e);
+				process.exit(1);
+			}
 		}
 	}
 
