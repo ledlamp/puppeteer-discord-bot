@@ -1,3 +1,4 @@
+console.log("start");
 (async () => {
 	var fs = require("fs");
 	try {
@@ -17,6 +18,8 @@
 	var cmdPrefix = "p!";
 	bot.on("message", async function(msg){
 		if (!msg.content.startsWith(cmdPrefix)) return;
+
+		console.log(`[${msg.guild && msg.guild.name}] [${msg.channel.name}] ${msg.author.tag} invoked command: ${msg.content}`);
 
 		var args = msg.content.split(" ");
 		var cmd = args[0].slice(cmdPrefix.length).toLowerCase();
@@ -81,12 +84,12 @@
 			await page.setViewport({width: 1440, height: 900});
 			await page.goto(url);
 			var screenshot = await page.screenshot({type: 'png'});
-			message.channel.send(new Discord.Attachment(screenshot, "screenshot.png"));
+			await message.channel.send(new Discord.Attachment(screenshot, "screenshot.png"));
 		} catch(error) {
-			message.channel.send(`:warning: ${error.message}`);
+			await message.channel.send(`:warning: ${error.message}`);
 		} finally {
 			try {
-				page.close();
+				await page.close();
 			} catch(e) {
 				console.error(e);
 				process.exit(1);
