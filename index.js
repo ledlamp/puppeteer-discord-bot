@@ -81,6 +81,9 @@ console.log("start");
 		message.react('🆗');
 		try {
 			var page = await browser.newPage();
+			page.on("error", error => {
+				message.channel.send(`:warning: ${error.message}`);
+			});
 			await page.setViewport({width: 1440, height: 900});
 			await page.goto(url);
 			var screenshot = await page.screenshot({type: 'png'});
