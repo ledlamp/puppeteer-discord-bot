@@ -76,6 +76,14 @@ console.log("start");
 			case "a":
 				pup(msg, `https://www.amazon.com/s?k=${encodeURIComponent(query)}`);
 				break;
+			case "duckduckgo":
+			case "ddg":
+				pup(msg, `https://duckduckgo.com/?q=${encodeURIComponent(query)}`);
+				break;
+			case "yahoo":
+			case "y":
+				pup(msg, `https://search.yahoo.com/search?p=${encodeURIComponent(query)}`);
+				break;
 /*
 			case "":
 			case "":
