@@ -37,6 +37,8 @@ console.log("start");
 						"\n`p!bing <query>`"+
 						"\n`p!bing-images <query>`"+
 						"\n`p!youtube <query>`"+
+						"\n`p!ebay <query>`" +
+						"\n`p!amazon <query>`" +
 						"\n\n[» Invite](https://discordapp.com/oauth2/authorize?scope=bot&client_id=482784865532641290)"+
 						"\n[» Repository](https://github.com/ledlamp/puppeteer-discord-bot)"+
 						"\n[» Submit an issue](https://github.com/ledlamp/puppeteer-discord-bot/issues/new)"
@@ -66,13 +68,14 @@ console.log("start");
 			case "yt":
 				pup(msg, `https://www.youtube.com/results?search_query=${encodeURIComponent(query)}`);
 				break;
+			case "ebay":
+			case "e":
+				pup(msg, `https://www.ebay.com/sch/i.html?_nkw=${encodeURIComponent(query)}`);
+				break;
 			case "amazon":
 			case "a":
 				pup(msg, `https://www.amazon.com/s?k=${encodeURIComponent(query)}`);
 				break;
-			case "ebay":
-			case "e":
-				pup(msg, `https://www.ebay.com/sch/i.html?_from=R40&_trksid=p2334524.m570.l1313.TR11.TRC1.A0.H0.X${encodeURIComponent(query)}.TRS0&_nkw=${encodeURIComponent(query)}&_sacat=0&LH_TitleDesc=0&_osacat=0&_odkw=search
 /*
 			case "":
 			case "":
