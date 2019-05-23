@@ -66,6 +66,13 @@ console.log("start");
 			case "yt":
 				pup(msg, `https://www.youtube.com/results?search_query=${encodeURIComponent(query)}`);
 				break;
+			case "amazon":
+			case "a":
+				pup(msg, `https://www.amazon.com/s?k=${encodeURIComponent(query)}`);
+				break;
+			case "ebay":
+			case "e":
+				pup(msg, `https://www.ebay.com/sch/i.html?_from=R40&_trksid=p2334524.m570.l1313.TR11.TRC1.A0.H0.X${encodeURIComponent(query)}.TRS0&_nkw=${encodeURIComponent(query)}&_sacat=0&LH_TitleDesc=0&_osacat=0&_odkw=search
 /*
 			case "":
 			case "":
