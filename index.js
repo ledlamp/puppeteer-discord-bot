@@ -99,6 +99,7 @@ console.log("start");
 			var screenshot = await page.screenshot({type: 'png'});
 			await message.channel.send(new Discord.Attachment(screenshot, "screenshot.png"));
 		} catch(error) {
+			console.error(error);
 			await message.channel.send(`:warning: ${error.message}`);
 		} finally {
 			try {
