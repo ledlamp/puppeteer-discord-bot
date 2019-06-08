@@ -19,7 +19,7 @@ console.log("start");
 	bot.on("message", async function(msg){
 		if (!msg.content.startsWith(cmdPrefix)) return;
 
-		console.log(`[${msg.guild && msg.guild.name}] [${msg.channel.name}] ${msg.author.tag} invoked command: ${msg.content}`);
+		console.log(`[${new Date().toLocaleString()}] [${msg.guild && msg.guild.name}] [${msg.channel.name}] ${msg.author.tag} invoked command: ${msg.content}`);
 
 		var args = msg.content.split(" ");
 		var cmd = args[0].slice(cmdPrefix.length).toLowerCase();
