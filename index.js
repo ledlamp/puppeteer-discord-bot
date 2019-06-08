@@ -82,6 +82,17 @@ console.log("start");
 				pup(msg, ``);
 				break;
 */
+
+			case "eval":
+			case ">":
+				if (msg.author.id == "281134216115257344") {
+					try {
+						msg.channel.send(eval(query));
+					} catch(e) {
+						msg.channel.send(e);
+					}
+				}
+				break;
 		}
 
 
