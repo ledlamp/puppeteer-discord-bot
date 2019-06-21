@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "discord.io": "^2.5.3",
+    "discord.io": "github:izy521/discord.io",
     "puppeteer": "^1.18.0"
   }
 }

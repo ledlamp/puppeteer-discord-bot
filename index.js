@@ -9,12 +9,12 @@ console.log("start");
 		token: fs.readFileSync('token.txt','utf8').trim(),
 		autorun: true
 	});
-	bot.setPresence({game: "p!help"});
+	bot.setPresence({game: {name: "p!help"}});
 
-	bot.on("message", async function(userName, userID, channelID, message, event){
+	bot.on("message", function(userName, userID, channelID, message, event){
 		if (!message.startsWith("p!")) return;
 
-		console.log(`[${new Date().toLocaleString()}] [${event.d.guild_id}(${client.servers[event.d.guild_id]&&client.servers[event.d.guild_id].name})] [${channelID}(#${client.channels[channelID]&&client.channels[channelID].name})] User ${userID} (${userName}#${event.d.author.discriminator}) invoked command: ${message}`);
+		console.log(`[${new Date().toLocaleString()}] [${event.d.guild_id}(${bot.servers[event.d.guild_id]&&bot.servers[event.d.guild_id].name})] [${channelID}(#${bot.channels[channelID]&&bot.channels[channelID].name})] User ${userID} (${userName}#${event.d.author.discriminator}) invoked command: ${message}`);
 
 		var args = message.split(" ");
 		var cmd = args[0].slice(2).toLowerCase();
