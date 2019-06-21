@@ -1,0 +1,10 @@
+{
+    "apps": [{
+      "name": "puppeteer-discord-bot",
+      "script": "index.js",
+      "env": {
+        "NODE_ENV": "production",
+        "PUPPETEER_EXECUTABLE_PATH": "/usr/bin/chromium-browser"
+      }
+    }]
+  }
