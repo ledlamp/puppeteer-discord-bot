@@ -113,11 +113,6 @@ console.log("start");
 				page.on("error", error => {
 					bot.sendMessage({message: `:warning: ${error.message}`, to: channelID});
 				});
-				await page.setCookie({
-					name: "GOOGLE_ABUSE_EXEMPTION",
-					value: "ID=d0457eebccd88f2f:TM=1563083852:C=r:IP=23.95.115.204-:S=APGng0tCWTidWyQekkov-AYeJynKB-8rDQ",
-					domain: "google.com"
-				});
 				await page.setViewport({width: 1440, height: 900});
 				await page.goto(url);
 				var screenshot = await page.screenshot({type: 'png'});
