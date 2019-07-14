@@ -28,14 +28,17 @@ console.log("start");
 					description:
 						"\n`p!screenshot <url>`"+
 						"\n`p!google <query>`"+
+						"\n`p!google-i'm-feeling-lucky <query>`" +
 						"\n`p!google-images <query>`"+
 						"\n`p!bing <query>`"+
 						"\n`p!bing-images <query>`"+
 						"\n`p!youtube <query>`"+
 						"\n`p!ebay <query>`" +
 						"\n`p!amazon <query>`" +
-						"\n\n[» Invite](https://discordapp.com/oauth2/authorize?scope=bot&client_id=482784865532641290)"+
-						"\n[» Repository](https://github.com/ledlamp/puppeteer-discord-bot)"+
+						"\n Each command has an abbreviated version." +
+						"\n"+
+						"\n\n[» Add this bot to your server](https://discordapp.com/oauth2/authorize?scope=bot&client_id=482784865532641290)"+
+						"\n[» Source code](https://github.com/ledlamp/puppeteer-discord-bot)"+
 						"\n[» Submit an issue](https://github.com/ledlamp/puppeteer-discord-bot/issues/new)"
 				}, to: channelID});
 				break;
@@ -47,6 +50,11 @@ console.log("start");
 			case "g":
 				pup(`https://www.google.com/search?q=${encodeURIComponent(query)}`);
 				break;
+			case "google-i'm-feeling-lucky":
+			case "gifl":
+				pup(`https://www.google.com/search?btnI=I%27m+Feeling+Lucky&q=${encodeURIComponent(query)}`);
+				break;
+
 			case "google-images":
 			case "gi":
 				pup(`https://www.google.com/search?q=${encodeURIComponent(query)}&tbm=isch&safe=${(bot.channels[channelID] && bot.channels[channelID].nsfw) ? 'off' : 'on'}`);
