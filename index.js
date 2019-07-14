@@ -71,6 +71,13 @@ console.log("start");
 			case "a":
 				pup(`https://www.amazon.com/s?k=${encodeURIComponent(query)}`);
 				break;
+			case "google-lucky":
+			case "im-feeling-lucky":
+			case "imfeelinglucky":
+			case "lucky":
+			case "gl":
+				pup(`https://www.google.com/search?btnI=I%27m+Feeling+Lucky&q=${encodeURIComponent(query)}`);
+				break;
 /*
 			case "":
 			case "":
