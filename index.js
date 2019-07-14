@@ -18,7 +18,7 @@ console.log("start");
 
 		var args = message.split(" ");
 		var cmd = args[0].slice(2).toLowerCase();
-		var query = args.slice(1).join(" ");
+		var query = args.slice(1).join(" ").trim();
 
 		switch (cmd) {
 			case "help":
