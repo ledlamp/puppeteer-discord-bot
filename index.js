@@ -35,6 +35,8 @@ console.log("start");
 						"\n`p!youtube <query>`"+
 						"\n`p!ebay <query>`" +
 						"\n`p!amazon <query>`" +
+                                                "\n`p!duckduckgo <query>`" +
+                                                "\n`p!yahoo <query>`" +
 						"\n Each command has an abbreviated version." +
 						"\n"+
 						"\n\n[» Add this bot to your server](https://discordapp.com/oauth2/authorize?scope=bot&client_id=482784865532641290)"+
