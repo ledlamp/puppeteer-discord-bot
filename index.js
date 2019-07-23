@@ -2,7 +2,7 @@ console.log("start");
 (async () => {
 	var fs = require("fs");
 	var puppeteer = require('puppeteer');
-	var browser = await puppeteer.launch();
+	var browser = await puppeteer.launch({args:["--no-sandbox"]});
 
 	var Discord = require('discord.io');
 	var bot = new Discord.Client({
