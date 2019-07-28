@@ -81,11 +81,11 @@ console.log("start");
 				break;
 			case "duckduckgo":
 			case "ddg":
-				pup(msg, `https://duckduckgo.com/?q=${encodeURIComponent(query)}`);
+				pup(`https://duckduckgo.com/?q=${encodeURIComponent(query)}`);
 				break;
 			case "yahoo":
 			case "y":
-				pup(msg, `https://search.yahoo.com/search?p=${encodeURIComponent(query)}`);
+				pup(`https://search.yahoo.com/search?p=${encodeURIComponent(query)}`);
 				break;
 /*
 			case "":
