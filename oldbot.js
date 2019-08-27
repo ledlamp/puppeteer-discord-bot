@@ -3,6 +3,10 @@ var fs = require("fs");
 var client = new Discord.Client();
 client.login(fs.readFileSync("oldtoken.txt", "utf8").trim());
 
+client.on("ready", () => {
+    client.user.setActivity("p!help");
+});
+
 client.on("message", message => {
     if (!message.content.startsWith("p!")) return;
     if (message.guild.members.has("330499952948019201")) return;
