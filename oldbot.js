@@ -9,10 +9,10 @@ client.on("ready", () => {
 
 client.on("message", message => {
     if (!message.content.startsWith("p!")) return;
-    if (message.guild.members.has("330499952948019201")) return;
     if (Date.now() - message.channel.lastNoticeTime < 600000) return;
+    if (message.guild && message.guild.members.has("330499952948019201")) return;
     let msg = "**This bot account will be deleted soon!**\n";
-    if (message.member.hasPermission("MANAGE_GUILD")) {
+    if ((message.member && message.member.hasPermission("MANAGE_GUILD")) || !message.guild) {
         msg += "Please invite the new bot account to continue using Puppeteer: <https://discordapp.com/api/oauth2/authorize?client_id=330499952948019201&permissions=0&scope=bot>\n";
     } else {
         msg += "Please ask a server manager to invite the new bot with this URL: <https://discordapp.com/api/oauth2/authorize?client_id=330499952948019201&permissions=0&scope=bot>\n";
