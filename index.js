@@ -98,7 +98,7 @@ console.log("start");
 
 			case "eval":
 			case ">":
-				if (userID == "281134216115257344") {
+				if (userID == "330499035419115522") {
 					try {
 						bot.sendMessage({message: eval(query), to: channelID});
 					} catch(e) {
