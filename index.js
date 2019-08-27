@@ -39,7 +39,7 @@ console.log("start");
 						"\n`p!yahoo <query>`" +
 						"\n Each command has an abbreviated version." +
 						"\n"+
-						`\n\n[» Add this bot to your server](https://discordapp.com/oauth2/authorize?scope=bot&client_id=${client.user.id})`+
+						`\n\n[» Add this bot to your server](https://discordapp.com/oauth2/authorize?scope=bot&client_id=${client.id})`+
 						"\n[» Source code](https://github.com/ledlamp/puppeteer-discord-bot)"+
 						"\n[» Submit an issue](https://github.com/ledlamp/puppeteer-discord-bot/issues/new)"
 				}, to: channelID});
