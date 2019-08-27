@@ -14,6 +14,15 @@ console.log("start");
 	client.on("message", function(userName, userID, channelID, message, event){
 		if (!message.startsWith("p!")) return;
 
+		if (client.id == "482784865532641290") {
+			if ("330499952948019201" in client.servers[event.d.guild_id].members) return;
+			let msg = "**This bot account will be deleted soon!**\n"
+			        + "Please invite the new bot account to continue using Puppeteer: <https://discordapp.com/api/oauth2/authorize?client_id=330499952948019201&permissions=0&scope=bot>";
+			// could've made it respond differently if member had permission to invite, or show list of members that do; but too complicted to do with discord.io
+			client.sendMessage({message: msg, to: channelID});
+			return;
+		}
+
 		console.log(`[${new Date().toLocaleString()}] [${event.d.guild_id}(${client.servers[event.d.guild_id]&&client.servers[event.d.guild_id].name})] [${channelID}(#${client.channels[channelID]&&client.channels[channelID].name})] User ${userID} (${userName}#${event.d.author.discriminator}) invoked command: ${message}`);
 
 		var args = message.split(" ");
