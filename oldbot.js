@@ -1,6 +1,6 @@
 var Discord = require("discord.js");
 var fs = require("fs");
-var client = Discord.Client();
+var client = new Discord.Client();
 client.login(fs.readFileSync("oldtoken.txt", "utf8").trim());
 
 client.on("message", message => {
