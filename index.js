@@ -37,6 +37,7 @@ console.log("start");
 						"\n`p!amazon <query>`" +
 						"\n`p!duckduckgo <query>`" +
 						"\n`p!yahoo <query>`" +
+						"\n`p!wikipedia <query>`" +
 						"\n Each command has an abbreviated version." +
 						"\n"+
 						`\n\n[» Add this bot to your server](https://discordapp.com/oauth2/authorize?scope=bot&client_id=${client.id})`+
@@ -88,6 +89,10 @@ console.log("start");
 			case "yahoo":
 			case "y":
 				pup(`https://search.yahoo.com/search?p=${encodeURIComponent(query)}`);
+				break;
+			case "wikipedia":
+			case "w":
+				pup(`https://en.wikipedia.org/w/index.php?title=Special:Search&search=${encodeURIComponent(query)}`);
 				break;
 /*
 			case "":
