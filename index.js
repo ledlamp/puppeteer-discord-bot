@@ -1,29 +1,27 @@
 console.log("start");
+var Discord = require("discord.js");
+var puppeteer = require("puppeteer");
+var fs = require("fs");
 (async () => {
-	var fs = require("fs");
-	var puppeteer = require('puppeteer');
-	var browser = await puppeteer.launch({args:["--no-sandbox"]});
+	var browser = await puppeteer.launch({args:["--no-sandbox"/*openvz*/]});
 
-	var Discord = require('discord.io');
-	var client = new Discord.Client({
-		token: fs.readFileSync('token.txt','utf8').trim(),
-		autorun: true
-	});
-	client.setPresence({game: {name: "p!help"}});
+	var client = new Discord.Client();
+	await client.login(fs.readFileSync('token.txt','utf8').trim());
+	client.user.setActivity("p!help");
 
-	client.on("message", function(userName, userID, channelID, message, event){
-		if (!message.startsWith("p!")) return;
+	client.on("message", async function (message) {
+		if (!message.content.startsWith("p!")) return;
 
-		console.log(`[${new Date().toLocaleString()}] [${event.d.guild_id}(${client.servers[event.d.guild_id]&&client.servers[event.d.guild_id].name})] [${channelID}(#${client.channels[channelID]&&client.channels[channelID].name})] User ${userID} (${userName}#${event.d.author.discriminator}) invoked command: ${message}`);
+		console.log(`[${new Date().toLocaleString()}] [${message.guild&&message.guild.id}(${message.guild&&message.guild.name})] [${message.channel.id}(#${message.channel.name})] User ${message.author.id} (${message.author.tag}) invoked command: ${message.content}`);
 
-		var args = message.split(" ");
+		var args = message.content.split(" ");
 		var cmd = args[0].slice(2).toLowerCase();
 		var query = args.slice(1).join(" ").trim();
 
 		switch (cmd) {
 			case "help":
 			case "h":
-				client.sendMessage({embed:{
+				message.channel.send({embed:{
 					title: "Commands",
 					description:
 						"\n`p!screenshot <url>`"+
@@ -40,10 +38,10 @@ console.log("start");
 						"\n`p!wikipedia <query>`" +
 						"\n Each command has an abbreviated version." +
 						"\n"+
-						`\n\n[» Add this bot to your server](https://discordapp.com/oauth2/authorize?scope=bot&client_id=${client.id})`+
+						`\n\n[» Add this bot to your server](https://discordapp.com/oauth2/authorize?scope=bot&client_id=${client.user.id})`+
 						"\n[» Source code](https://github.com/ledlamp/puppeteer-discord-bot/blob/master/index.js)"+
 						"\n[» Submit an issue](https://github.com/ledlamp/puppeteer-discord-bot/issues/new)"
-				}, to: channelID});
+				}});
 				break;
 			case "screenshot":
 			case "ss":
@@ -60,7 +58,7 @@ console.log("start");
 
 			case "google-images":
 			case "gi":
-				pup(`https://www.google.com/search?q=${encodeURIComponent(query)}&tbm=isch&safe=${(client.channels[channelID] && client.channels[channelID].nsfw) ? 'off' : 'on'}`);
+				pup(`https://www.google.com/search?q=${encodeURIComponent(query)}&tbm=isch&safe=${(message.channel.nsfw) ? 'off' : 'on'}`);
 				break;
 			case "bing":
 			case "b":
@@ -68,7 +66,7 @@ console.log("start");
 				break;
 			case "bing-images":
 			case "bi":
-				pup(`https://www.bing.com/images/search?q=${encodeURIComponent(query)}&safeSearch=${(client.channels[channelID] && client.channels[channelID].nsfw) ? 'off' : 'moderate'}`);
+				pup(`https://www.bing.com/images/search?q=${encodeURIComponent(query)}&safeSearch=${(message.channel.nsfw) ? 'off' : 'moderate'}`);
 				break;
 			case "youtube":
 			case "yt":
@@ -105,33 +103,33 @@ console.log("start");
 			case ">":
 				if (userID == "330499035419115522") {
 					try {
-						client.sendMessage({message: eval(query), to: channelID});
-					} catch(e) {
-						client.sendMessage({message: e, to: channelID});
+						message.channel.send(String(eval(query)));
+					} catch(error) {
+						message.channel.send(String(error));
 					}
 				}
 				break;
 		}
 
 		async function pup(url) {
-			client.addReaction({reaction:'🆗', channelID, messageID: event.d.id});
+			message.react('🆗');
 			try {
 				var page = await browser.newPage();
 				page.on("error", error => {
-					client.sendMessage({message: `:warning: ${error.message}`, to: channelID});
+					message.channel.send(`:warning: ${error.message}`);
 				});
 				await page.setViewport({width: 1440, height: 900});
 				await page.goto(url);
 				var screenshot = await page.screenshot({type: 'png'});
-				client.uploadFile({file: screenshot, filename: "screenshot.png", to: channelID});
+				message.channel.send({files:[{ attachment: screenshot, name: "screenshot.png" }]});
 			} catch(error) {
 				console.error(error);
-				client.sendMessage({message: `:warning: ${error.message}`, to: channelID});
+				message.channel.send(`:warning: ${error.message}`);
 			} finally {
 				try {
 					await page.close();
-				} catch(e) {
-					console.error(e);
+				} catch(error) {
+					console.error(error);
 					process.exit(1);
 				}
 			}
