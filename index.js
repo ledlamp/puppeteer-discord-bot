@@ -10,9 +10,11 @@ var fs = require("fs");
 	client.user.setActivity("p!help");
 
 	client.on("message", processMessage);
-	client.on("messageEdit", processMessage);
+	client.on("messageEdit", (oldMessage, newMessage) => {
+		processMessage(newMessage);
+	});
 	client.on("messageDelete", message => {
-		if (message.reponse) message.response.delete();
+		if (message.response) message.response.delete();
 	});
 
 	async function processMessage(message) {
