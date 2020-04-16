@@ -9,8 +9,21 @@ var fs = require("fs");
 	await client.login(fs.readFileSync('token.txt','utf8').trim());
 	client.user.setActivity("p!help");
 
-	client.on("message", async function (message) {
-		if (!message.content.startsWith("p!")) return;
+	client.on("message", processMessage);
+	client.on("messageEdit", processMessage);
+	client.on("messageDelete", message => {
+		if (message.reponse) message.response.delete();
+	});
+
+	async function processMessage(message) {
+		if (!message.content.startsWith("p!")) {
+			if (message.response) {
+				message.response.delete();
+				message.reactions.cache.filter(r => r.me).forEach(r => r.users.remove(client.user));
+			}
+			return;
+		}
+		message.response && await Promise.all(message.reactions.cache.filter(r => r.me).map(r => r.users.remove(client.user)));
 
 		console.log(`[${new Date().toLocaleString()}] [${message.guild&&message.guild.id}(${message.guild&&message.guild.name})] [${message.channel.id}(#${message.channel.name})] User ${message.author.id} (${message.author.tag}) invoked command: ${message.content}`);
 
@@ -18,10 +31,17 @@ var fs = require("fs");
 		var cmd = args[0].slice(2).toLowerCase();
 		var query = args.slice(1).join(" ").trim();
 
+		async function respond() {
+			if (message.response)
+				message.response = await message.edit.apply(message.channel, arguments);
+			else
+				message.response = await message.channel.send.apply(message.channel, arguments);
+		}
+
 		switch (cmd) {
 			case "help":
 			case "h":
-				message.channel.send({embed:{
+				respond({embed:{
 					title: "Commands",
 					description:
 						"\n`p!screenshot <url>`"+
@@ -103,9 +123,9 @@ var fs = require("fs");
 			case ">":
 				if (userID == "330499035419115522") {
 					try {
-						message.channel.send(String(eval(query)));
+						respond(String(eval(query)));
 					} catch(error) {
-						message.channel.send(String(error));
+						respond(String(error));
 					}
 				}
 				break;
@@ -116,15 +136,15 @@ var fs = require("fs");
 			try {
 				var page = await browser.newPage();
 				page.on("error", error => {
-					message.channel.send(`:warning: ${error.message}`);
+					respond(`:warning: ${error.message}`);
 				});
 				await page.setViewport({width: 1440, height: 900});
 				await page.goto(url);
 				var screenshot = await page.screenshot({type: 'png'});
-				message.channel.send({files:[{ attachment: screenshot, name: "screenshot.png" }]});
+				respond({files:[{ attachment: screenshot, name: "screenshot.png" }]});
 			} catch(error) {
 				console.error(error);
-				message.channel.send(`:warning: ${error.message}`);
+				respond(`:warning: ${error.message}`);
 			} finally {
 				try {
 					await page.close();
@@ -134,5 +154,7 @@ var fs = require("fs");
 				}
 			}
 		}
-	});
+
+	};
+
 })();
