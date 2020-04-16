@@ -10,7 +10,7 @@ var fs = require("fs");
 	client.user.setActivity("p!help");
 
 	client.on("message", processMessage);
-	client.on("messageEdit", (oldMessage, newMessage) => {
+	client.on("messageUpdate", (oldMessage, newMessage) => {
 		processMessage(newMessage);
 	});
 	client.on("messageDelete", message => {
