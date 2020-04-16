@@ -4,28 +4,26 @@ var puppeteer = require("puppeteer");
 var fs = require("fs");
 (async () => {
 	var browser = await puppeteer.launch({args:["--no-sandbox"/*openvz*/]});
+	console.log("chromium launched");
 
 	var client = new Discord.Client();
 	await client.login(fs.readFileSync('token.txt','utf8').trim());
+	console.log("discord client ready");
 	client.user.setActivity("p!help");
 
 	client.on("message", processMessage);
 	client.on("messageUpdate", (oldMessage, newMessage) => {
-		processMessage(newMessage);
+		if (newMessage.response) newMessage.react('🚫');
 	});
 	client.on("messageDelete", message => {
-		if (message.response) message.response.delete();
+		if (message.response) {
+			message.response.delete();
+			console.log(`[${new Date().toLocaleString()}] [${message.guild&&message.guild.id}(${message.guild&&message.guild.name})] [${message.channel.id}(#${message.channel.name})] Deleted command from ${message.author.id} (${message.author.tag}): ${message.content}`);
+		}
 	});
 
 	async function processMessage(message) {
-		if (!message.content.startsWith("p!")) {
-			if (message.response) {
-				message.response.delete();
-				message.reactions.cache.filter(r => r.me).forEach(r => r.users.remove(client.user));
-			}
-			return;
-		}
-		message.response && await Promise.all(message.reactions.cache.filter(r => r.me).map(r => r.users.remove(client.user)));
+		if (!message.content.startsWith("p!")) return;
 
 		console.log(`[${new Date().toLocaleString()}] [${message.guild&&message.guild.id}(${message.guild&&message.guild.name})] [${message.channel.id}(#${message.channel.name})] User ${message.author.id} (${message.author.tag}) invoked command: ${message.content}`);
 
@@ -34,10 +32,7 @@ var fs = require("fs");
 		var query = args.slice(1).join(" ").trim();
 
 		async function respond() {
-			if (message.response)
-				message.response = await message.response.edit.apply(message.response, arguments);
-			else
-				message.response = await message.channel.send.apply(message.channel, arguments);
+			message.response = await message.channel.send.apply(message.channel, arguments);
 		}
 
 		switch (cmd) {
@@ -159,4 +154,4 @@ var fs = require("fs");
 
 	};
 
-})();
+})().catch(error => { console.error(error); process.exit(1); });
