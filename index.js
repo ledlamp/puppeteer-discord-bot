@@ -101,7 +101,7 @@ var fs = require("fs");
 
 			case "eval":
 			case ">":
-				if (userID == "330499035419115522") {
+				if (message.author.id == "330499035419115522") {
 					try {
 						message.channel.send(String(eval(query)));
 					} catch(error) {
