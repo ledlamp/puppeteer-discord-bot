@@ -35,7 +35,7 @@ var fs = require("fs");
 
 		async function respond() {
 			if (message.response)
-				message.response = await message.edit.apply(message, arguments);
+				message.response = await message.response.edit.apply(message.response, arguments);
 			else
 				message.response = await message.channel.send.apply(message.channel, arguments);
 		}
