@@ -138,7 +138,7 @@ var fs = require("fs");
 					});
 					await page.setViewport({width: 1440, height: 900});
 					await page.goto(url);
-					var screenshot = await page.screenshot({type: 'png'});
+					var screenshot = await page.screenshot({ type: 'png', fullPage: true });
 					resolve(await message.channel.send({files:[{ attachment: screenshot, name: "screenshot.png" }]}));
 				} catch(error) {
 					console.error(error);
