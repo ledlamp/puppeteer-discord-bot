@@ -46,7 +46,8 @@ var PREFIX = process.env.PREFIX || "p!";
 		var cmd = args[0].toLowerCase();
 		var pargs = minimist(args.slice(1), {alias:{
 			"wait": "w",
-			"dimensions": "d"
+			"dimensions": "d",
+			"fullpage": "f"
 		}});
 		var query = pargs._.join(' ');
 		var wait_ms = Math.min(dhms(pargs.wait), 30000);
@@ -78,8 +79,9 @@ var PREFIX = process.env.PREFIX || "p!";
 						`\n Each command has a logical abbreviated alias (i.e. \`${PREFIX}gi\`)` +
 						`\n` +
 						`\n**Options**` +
-						`\n\`--dimensions=<width>x<height>\` i.e. \`-d 640x480\` (max 10000x10000)` +
-						`\n\`--wait=<time>\` i.e. \`-w 5s\` (max 30s)` +
+						`\n\`--dimensions=<width>x<height>\` or i.e. \`-d 640x480\` (max 10000x10000)` +
+						`\n\`--wait=<time>\` or i.e. \`-w 5s\` (max 30s)` +
+						`\n\`--fullpage\` or \`-f\`` +
 						`\n` +
 						`\n[» Add this bot to your server](https://discordapp.com/oauth2/authorize?scope=bot&client_id=${client.user.id})` +
 						`\n[» Suggest sites or report a bug](https://github.com/ledlamp/puppeteer-discord-bot/issues/new)` +
@@ -174,7 +176,7 @@ var PREFIX = process.env.PREFIX || "p!";
 				await page.setViewport(viewport);
 				await page.goto(url);
 				await new Promise(r => setTimeout(r, wait_ms));
-				var screenshot = await page.screenshot({type: 'png'});
+				var screenshot = await page.screenshot({type: 'png', fullPage: Boolean(pargs.fullpage)});
 				await respond({files:[{ attachment: screenshot, name: "screenshot.png" }]});
 			} catch(error) {
 				console.error(error);
