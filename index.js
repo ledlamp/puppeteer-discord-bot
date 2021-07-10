@@ -163,7 +163,7 @@ var PREFIX = process.env.PREFIX || "p!";
 		}
 
 		async function pup(url) {
-			if (message.author.pendingResponse) { message.react('🚫'); return; }
+			//if (message.author.pendingResponse) { message.react('🚫'); return; }
 			message.author.pendingResponse = true;
 			message.react('🆗');
 			try {
