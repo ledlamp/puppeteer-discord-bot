@@ -44,11 +44,14 @@ var PREFIX = process.env.PREFIX || "p!";
 		var inp = message.content.slice(PREFIX.length);
 		var args = inp.split(" ");
 		var cmd = args[0].toLowerCase();
-		var pargs = minimist(args.slice(1), {alias:{
-			"wait": "w",
-			"dimensions": "d",
-			"fullpage": "f"
-		}});
+		var pargs = minimist(args.slice(1), {
+			alias: {
+				"wait": "w",
+				"dimensions": "d",
+				"fullpage": "f"
+			},
+			boolean: "fullpage"
+		});
 		var query = pargs._.join(' ');
 		var wait_ms = Math.min(dhms(pargs.wait), 30000);
 		var viewport = pargs.dimensions?.split('x');
